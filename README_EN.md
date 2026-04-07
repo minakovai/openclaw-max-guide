@@ -32,6 +32,29 @@ See [examples/](examples/) for more configuration examples.
 - [Russian README](README.md)
 - [Original Plugin](https://github.com/olegbalbekov/openclaw-max)
 
+## Media Support (Images & Files)
+
+MAX plugin supports sending and receiving images.
+
+### Receiving Images
+
+When user sends an image in MAX:
+1. OpenClaw automatically downloads the image
+2. AI can analyze it (if model supports vision)
+3. Response is sent back to user
+
+### Sending Images
+
+Use `MEDIA:` prefix in responses:
+```
+MEDIA:https://example.com/image.jpg
+Your text response
+```
+
+See [skills/max-media/](skills/max-media/) for details.
+
+---
+
 ## Voice Messages
 
 MAX supports voice messages. OpenClaw uses OpenAI Whisper for transcription.
