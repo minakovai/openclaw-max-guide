@@ -1,0 +1,43 @@
+{
+  "_comment": "Конфигурация MAX с поддержкой медиа (изображения и голосовые)",
+  "env": {
+    "MAX_BOT_TOKEN": "your_max_token"
+  },
+  "channels": {
+    "max": {
+      "enabled": true,
+      "token": "${MAX_BOT_TOKEN}",
+      "dmPolicy": "allowlist",
+      "allowFrom": ["YOUR_MAX_USER_ID"]
+    }
+  },
+  "tools": {
+    "media": {
+      "images": {
+        "enabled": true,
+        "maxBytes": 10485760,
+        "supportedFormats": ["jpg", "jpeg", "png", "gif", "webp"]
+      },
+      "audio": {
+        "enabled": true,
+        "maxBytes": 20971520,
+        "models": [
+          {
+            "type": "cli",
+            "command": "whisper",
+            "args": [
+              "--model", "base",
+              "--language", "ru",
+              "--fp16", "False",
+              "--output_format", "txt",
+              "--output_dir", "/tmp/openclaw-stt",
+              "{{MediaPath}}"
+            ],
+            "timeoutSeconds": 120
+          }
+        ],
+        "echoTranscript": false
+      }
+    }
+  }
+}

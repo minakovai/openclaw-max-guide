@@ -1,0 +1,17 @@
+{
+  "name": "max-media",
+  "description": "Media handling for MAX messenger - images and files",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "send_max_image",
+      "description": "Send image to MAX chat",
+      "command": "echo 'Use OpenClaw native media response with MEDIA:image_url'"
+    },
+    {
+      "name": "receive_max_image",
+      "description": "Process received image from MAX",
+      "command": "echo 'Images are automatically downloaded by OpenClaw MAX plugin'"
+    }
+  ]
+}
