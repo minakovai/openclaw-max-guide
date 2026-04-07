@@ -1,0 +1,27 @@
+{
+  "name": "openclaw-max-guide",
+  "version": "1.0.0",
+  "description": "Complete guide for integrating OpenClaw with MAX messenger",
+  "scripts": {
+    "validate": "node -e \"JSON.parse(require('fs').readFileSync('examples/config.example.json'))\" && echo 'Config is valid JSON'"
+  },
+  "keywords": [
+    "openclaw",
+    "max",
+    "max.ru",
+    "messenger",
+    "integration",
+    "guide",
+    "tutorial"
+  ],
+  "author": "Alexander Minakov <am@infodrive.pro>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minakovai/openclaw-max-guide.git"
+  },
+  "bugs": {
+    "url": "https://github.com/minakovai/openclaw-max-guide/issues"
+  },
+  "homepage": "https://github.com/minakovai/openclaw-max-guide#readme"
+}

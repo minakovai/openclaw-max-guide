@@ -1,0 +1,17 @@
+{
+  "_comment": "Конфигурация MAX с webhook (для production серверов)",
+  "env": {
+    "MAX_BOT_TOKEN": "your_max_token",
+    "MAX_WEBHOOK_SECRET": "your_webhook_secret"
+  },
+  "channels": {
+    "max": {
+      "enabled": true,
+      "token": "${MAX_BOT_TOKEN}",
+      "dmPolicy": "allowlist",
+      "allowFrom": ["4899888"],
+      "webhookUrl": "https://your-domain.com/api/channels/max/webhook",
+      "webhookSecret": "${MAX_WEBHOOK_SECRET}"
+    }
+  }
+}

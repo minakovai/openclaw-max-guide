@@ -1,0 +1,229 @@
+# OpenClaw + MAX Integration Guide
+
+Полное руководство по интеграции OpenClaw с мессенджером MAX (max.ru).
+
+[![OpenClaw](https://img.shields.io/badge/OpenClaw-%E2%89%A52026.3.24-blue)](https://github.com/openclaw/openclaw)
+[![MAX](https://img.shields.io/badge/MAX-max.ru-green)](https://max.ru)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## 📋 Оглавление
+
+- [Быстрый старт](#-быстрый-старт)
+- [Установка](#-установка)
+- [Настройка](#-настройка)
+- [Пример конфигурации](#-пример-конфигурации)
+- [Режимы работы](#-режимы-работы)
+- [Troubleshooting](#-troubleshooting)
+
+---
+
+## 🚀 Быстрый старт
+
+```bash
+# 1. Установите плагин
+openclaw plugins install @olegbalbekov/openclaw-max
+
+# 2. Получите токен бота на https://business.max.ru
+
+# 3. Настройте openclaw.json (см. пример ниже)
+
+# 4. Перезапустите OpenClaw
+openclaw gateway restart
+```
+
+---
+
+## 📦 Установка
+
+### Автоматическая установка
+
+```bash
+openclaw plugins install @olegbalbekov/openclaw-max
+```
+
+### Ручная установка
+
+```bash
+# Клонируйте плагин
+git clone https://github.com/olegbalbekov/openclaw-max.git ~/.openclaw/extensions/max
+cd ~/.openclaw/extensions/max
+npm install
+npm run build
+```
+
+---
+
+## 🔧 Настройка
+
+### 1. Получение токена бота
+
+1. Перейдите на [business.max.ru](https://business.max.ru)
+2. Создайте нового бота
+3. Скопируйте токен (длинная строка вида `f9LHodD0cOI68do1iKe2G...`)
+
+### 2. Узнайте свой MAX ID
+
+Напишите боту [@userinfobot](https://max.ru/userinfobot) в MAX — он покажет ваш ID.
+
+### 3. Настройка openclaw.json
+
+Добавьте в `~/.openclaw/openclaw.json`:
+
+```json
+{
+  "channels": {
+    "max": {
+      "enabled": true,
+      "token": "YOUR_MAX_BOT_TOKEN",
+      "dmPolicy": "allowlist",
+      "allowFrom": ["YOUR_MAX_USER_ID"]
+    }
+  }
+}
+```
+
+⚠️ **Важно:** ID пользователей должны быть **строками** (в кавычках), не числами!
+
+---
+
+## 📝 Пример конфигурации
+
+### Базовая настройка (только личные сообщения)
+
+```json
+{
+  "channels": {
+    "max": {
+      "enabled": true,
+      "token": "${MAX_BOT_TOKEN}",
+      "dmPolicy": "allowlist",
+      "allowFrom": ["4899888"]
+    }
+  }
+}
+```
+
+### Расширенная настройка (с переменными окружения)
+
+```json
+{
+  "env": {
+    "MAX_BOT_TOKEN": "your_token_here"
+  },
+  "channels": {
+    "max": {
+      "enabled": true,
+      "token": "${MAX_BOT_TOKEN}",
+      "dmPolicy": "allowlist",
+      "allowFrom": ["4899888", "1234567"]
+    }
+  }
+}
+```
+
+### Webhook режим (для production)
+
+```json
+{
+  "channels": {
+    "max": {
+      "enabled": true,
+      "token": "${MAX_BOT_TOKEN}",
+      "dmPolicy": "allowlist",
+      "allowFrom": ["4899888"],
+      "webhookUrl": "https://your-domain.com/api/channels/max/webhook",
+      "webhookSecret": "your-webhook-secret"
+    }
+  }
+}
+```
+
+---
+
+## 🔄 Режимы работы
+
+### Long Polling (по умолчанию)
+
+- Бот постоянно опрашивает сервер MAX
+- Не требует внешнего URL
+- Подходит для локального использования
+
+### Webhook
+
+- MAX отправляет сообщения на ваш URL
+- Требует публичного домена
+- Более эффективен для production
+
+---
+
+## 🔍 Troubleshooting
+
+### "Plugin not starting / channels.max: unknown channel id"
+
+```bash
+# Проверьте версию OpenClaw
+openclaw --version
+
+# Должно быть >= 2026.3.24
+```
+
+### "Telegram stops working after adding MAX"
+
+❌ Неправильно:
+```json
+{
+  "plugins": {
+    "allow": ["max"]
+  }
+}
+```
+
+✅ Правильно:
+```json
+{
+  "plugins": {
+    "entries": {
+      "max": { "enabled": true }
+    }
+  }
+}
+```
+
+### "Gateway won't start"
+
+```bash
+# Проверьте валидность JSON
+python3 -c "import json; json.load(open('~/.openclaw/openclaw.json'))"
+
+# Проверьте логи
+openclaw logs --follow
+```
+
+---
+
+## 📚 Полезные ссылки
+
+- [Оригинальный плагин](https://github.com/olegbalbekov/openclaw-max) — @olegbalbekov
+- [OpenClaw документация](https://docs.openclaw.ai)
+- [MAX Bot API](https://business.max.ru)
+
+---
+
+## 👤 Автор гайда
+
+**Alexander Minakov**  
+📧 am@infodrive.pro  
+🌐 [minakovai.ru](https://minakovai.ru)
+
+---
+
+## 📄 Лицензия
+
+MIT License
+
+---
+
+## 🙏 Благодарности
+
+- [Oleg Balbekov](https://github.com/olegbalbekov) — автор плагина openclaw-max
+- [OpenClaw Team](https://github.com/openclaw) — за отличную платформу
