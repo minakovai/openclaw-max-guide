@@ -97,7 +97,7 @@ npm run build
       "enabled": true,
       "token": "${MAX_BOT_TOKEN}",
       "dmPolicy": "allowlist",
-      "allowFrom": ["4899888"]
+      "allowFrom": ["YOUR_MAX_USER_ID"]
     }
   }
 }
@@ -115,7 +115,7 @@ npm run build
       "enabled": true,
       "token": "${MAX_BOT_TOKEN}",
       "dmPolicy": "allowlist",
-      "allowFrom": ["4899888", "1234567"]
+      "allowFrom": ["YOUR_MAX_USER_ID", "ANOTHER_USER_ID"]
     }
   }
 }
@@ -130,7 +130,7 @@ npm run build
       "enabled": true,
       "token": "${MAX_BOT_TOKEN}",
       "dmPolicy": "allowlist",
-      "allowFrom": ["4899888"],
+      "allowFrom": ["YOUR_MAX_USER_ID"],
       "webhookUrl": "https://your-domain.com/api/channels/max/webhook",
       "webhookSecret": "your-webhook-secret"
     }
@@ -220,6 +220,61 @@ openclaw logs --follow
 ## 📄 Лицензия
 
 MIT License
+
+---
+
+## 🎙️ Голосовые сообщения
+
+MAX поддерживает отправку и получение голосовых сообщений. Для их обработки используется OpenAI Whisper.
+
+### Настройка распознавания голоса
+
+В `openclaw.json` уже настроена обработка аудио:
+
+```json
+{
+  "tools": {
+    "media": {
+      "audio": {
+        "enabled": true,
+        "maxBytes": 20971520,
+        "models": [
+          {
+            "type": "cli",
+            "command": "whisper",
+            "args": [
+              "--model", "base",
+              "--language", "ru",
+              "--fp16", "False",
+              "--output_format", "txt",
+              "--output_dir", "/tmp/openclaw-stt",
+              "{{MediaPath}}"
+            ],
+            "timeoutSeconds": 120
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+### Требования
+
+```bash
+# Установите Whisper
+pip install openai-whisper
+
+# Или используйте встроенную версию OpenClaw
+```
+
+### Как это работает
+
+1. Пользователь отправляет голосовое сообщение в MAX
+2. OpenClaw автоматически скачивает аудио
+3. Whisper распознаёт текст
+4. Текст передаётся в модель (Kimi/YandexGPT)
+5. Ответ отправляется пользователю
 
 ---
 

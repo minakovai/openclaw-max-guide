@@ -41,7 +41,7 @@
       "enabled": true,
       "token": "${MAX_BOT_TOKEN}",
       "dmPolicy": "allowlist",
-      "allowFrom": ["4899888"]
+      "allowFrom": ["YOUR_MAX_USER_ID"]
     }
   },
   "gateway": {

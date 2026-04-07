@@ -1,0 +1,12 @@
+{
+  "name": "max-audio",
+  "description": "Audio processing for MAX messenger - voice message transcription",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "transcribe_max_voice",
+      "description": "Transcribe voice message from MAX using Whisper",
+      "command": "whisper --model base --language ru --fp16 False --output_format txt --output_dir /tmp/openclaw-stt {{audioPath}}"
+    }
+  ]
+}
