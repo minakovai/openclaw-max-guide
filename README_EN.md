@@ -32,6 +32,26 @@ See [examples/](examples/) for more configuration examples.
 - [Russian README](README.md)
 - [Original Plugin](https://github.com/olegbalbekov/openclaw-max)
 
+## Voice Messages
+
+MAX supports voice messages. OpenClaw uses OpenAI Whisper for transcription.
+
+### Setup
+
+```bash
+pip install openai-whisper
+```
+
+### How it works
+
+1. User sends voice message in MAX
+2. OpenClaw downloads audio automatically
+3. Whisper transcribes to text
+4. AI model processes the text
+5. Response sent back to user
+
+See [skills/max-audio/](skills/max-audio/) for skill configuration.
+
 ## License
 
 MIT
